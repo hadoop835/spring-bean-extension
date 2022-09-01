@@ -14,6 +14,13 @@ public @interface Extension {
      * 实体名称
      * @return
      */
-    String [] beanNames () default {};
+    String [] overrideBeanNames () default {};
+
+
+    /**
+     * 实例化bean
+     * @return
+     */
+    String   beanName() default  "";
 
 }

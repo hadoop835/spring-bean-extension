@@ -7,6 +7,7 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.extension.annotation.Extension;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -47,9 +48,16 @@ public class ClassPathExtensionScanner extends ClassPathBeanDefinitionScanner {
             }
             if (beanClass.isAnnotationPresent(Extension.class)) {
                 Extension extension = beanClass.getAnnotation(Extension.class);
-                String [] beanNames = extension.beanNames();
+                String [] beanNames = extension.overrideBeanNames();
                 for(String beanName : beanNames){
                     registry.removeBeanDefinition(beanName);
+                }
+                if(StringUtils.hasText(extension.beanName())){
+                    String simpleName =  beanClass.getSimpleName();
+                    simpleName = simpleName.substring(0,1).toLowerCase()+simpleName.substring(1);
+                    System.out.println(simpleName);
+                    registry.removeBeanDefinition(simpleName);
+                    registry.registerBeanDefinition(extension.beanName(),definition);
                 }
             }
         }
