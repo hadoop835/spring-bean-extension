@@ -36,8 +36,6 @@ public class ClassPathExtensionScanner extends ClassPathBeanDefinitionScanner {
     protected void processBeanDefinitions(Set<BeanDefinitionHolder> beanDefinitions) {
         AbstractBeanDefinition definition;
         BeanDefinitionRegistry registry = getRegistry();
-
-
         for (BeanDefinitionHolder holder : beanDefinitions) {
             definition = (AbstractBeanDefinition) holder.getBeanDefinition();
             String beanClassName = definition.getBeanClassName();
