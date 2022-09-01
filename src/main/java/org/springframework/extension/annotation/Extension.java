@@ -14,11 +14,6 @@ public @interface Extension {
      * 实体名称
      * @return
      */
-    String [] name () default {};
-    /**
-     * 排序，值越大优先执行
-     * @return
-     */
-    int order() default 1;
+    String [] beanNames () default {};
 
 }
