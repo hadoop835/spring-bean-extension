@@ -28,10 +28,6 @@ public class ExtensionScannerConfigurer implements BeanDefinitionRegistryPostPro
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
          ClassPathExtensionScanner  scanner = new ClassPathExtensionScanner(beanDefinitionRegistry);
          scanner.scan(StringUtils.tokenizeToStringArray(this.basePackage, ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));
-
-         //scanner.processBeanDefinitions(StringUtils.tokenizeToStringArray(this.basePackage, ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));
-
-
     }
 
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
