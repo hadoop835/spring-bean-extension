@@ -47,7 +47,7 @@ public class ClassPathExtensionScanner extends ClassPathBeanDefinitionScanner {
             }
             if (beanClass.isAnnotationPresent(Extension.class)) {
                 Extension extension = beanClass.getAnnotation(Extension.class);
-                String [] beanNames = extension.name();
+                String [] beanNames = extension.beanNames();
                 for(String beanName : beanNames){
                     registry.removeBeanDefinition(beanName);
                 }
