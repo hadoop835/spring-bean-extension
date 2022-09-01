@@ -55,7 +55,6 @@ public class ClassPathExtensionScanner extends ClassPathBeanDefinitionScanner {
                 if(StringUtils.hasText(extension.beanName())){
                     String simpleName =  beanClass.getSimpleName();
                     simpleName = simpleName.substring(0,1).toLowerCase()+simpleName.substring(1);
-                    System.out.println(simpleName);
                     registry.removeBeanDefinition(simpleName);
                     registry.registerBeanDefinition(extension.beanName(),definition);
                 }
