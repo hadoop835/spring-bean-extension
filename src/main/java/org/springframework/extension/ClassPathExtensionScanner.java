@@ -7,9 +7,11 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.extension.annotation.Extension;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,21 +19,30 @@ import java.util.Set;
  *
  * @author chenzhh
  */
+@Component
 public class ClassPathExtensionScanner extends ClassPathBeanDefinitionScanner {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClassPathExtensionScanner.class);
-
+    private static final Set<BeanDefinitionHolder> beanDefinitions =new HashSet<BeanDefinitionHolder>();
     /**
      * @param registry
      */
     public ClassPathExtensionScanner(BeanDefinitionRegistry registry) {
-        super(registry);
+        super(registry,true);
+
     }
 
     @Override
     protected Set<BeanDefinitionHolder> doScan(String... basePackages) {
         Set<BeanDefinitionHolder> beanDefinitionHolders = super.doScan(basePackages);
-        processBeanDefinitions(beanDefinitionHolders);
+        processBeanDefinitions(beanDefinitions);
         return beanDefinitionHolders;
+    }
+
+    @Override
+    protected void postProcessBeanDefinition(AbstractBeanDefinition beanDefinition, String beanName) {
+        super.postProcessBeanDefinition(beanDefinition, beanName);
+        BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(beanDefinition, beanName);
+        beanDefinitions.add(definitionHolder);
     }
 
     protected void processBeanDefinitions(Set<BeanDefinitionHolder> beanDefinitions) {
