@@ -44,11 +44,6 @@ public class ExtensionScannerConfigurer implements BeanDefinitionRegistryPostPro
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         ClassPathExtensionScanner scanner = new ClassPathExtensionScanner(beanDefinitionRegistry);
-        //scanner.setBeanNameGenerator(new AnnotationBeanNameGenerator());
-        scanner.addIncludeFilter((metadataReader, metadataReaderFactory) -> {
-            Service service = metadataReader.getClassMetadata().getClass().getAnnotation(Service.class);
-            return service!=null?true:false;
-        });
         scanner.addExcludeFilter((metadataReader, metadataReaderFactory) -> {
             String className = metadataReader.getClassMetadata().getClassName();
             return className.endsWith("package-info");
