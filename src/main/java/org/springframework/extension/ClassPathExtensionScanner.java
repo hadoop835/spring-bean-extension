@@ -29,7 +29,7 @@ public class ClassPathExtensionScanner extends ClassPathBeanDefinitionScanner {
      * @param registry
      */
     public ClassPathExtensionScanner(BeanDefinitionRegistry registry) {
-        super(registry, true);
+        super(registry, false);
 
     }
 

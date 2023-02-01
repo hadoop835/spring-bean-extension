@@ -49,6 +49,9 @@ public class ExtensionScannerConfigurer implements BeanDefinitionRegistryPostPro
             return className.endsWith("package-info");
         });
         scanner.setResourceLoader(this.applicationContext);
+        scanner.addIncludeFilter(new AnnotationTypeFilter(Component.class));
+        scanner.addIncludeFilter(new AnnotationTypeFilter(Service.class));
+        scanner.addIncludeFilter(new AnnotationTypeFilter(Repository.class));
          this.basePackage = configurableEnvironment.getProperty("spring.extension.basePackage");
         if(!StringUtils.hasText(basePackage)){
             this.basePackage = configurableEnvironment.getProperty("spring.extension.base-package");
